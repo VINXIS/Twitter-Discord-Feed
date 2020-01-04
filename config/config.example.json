@@ -1,0 +1,13 @@
+{
+    "Twitter": {
+        "Token": "",
+        "Secret": "",
+        "ConsumerKey": "",
+        "ConsumerSecret": ""
+    },
+    "Discord": {
+        "Token": "",
+        "Username": "",
+        "Avatar": ""
+    }
+}

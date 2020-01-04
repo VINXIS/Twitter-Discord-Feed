@@ -123,12 +123,20 @@ func followInfo(s *discordgo.Session, m *discordgo.MessageCreate) {
 	// Load users
 	users := loadUsers(m)
 
+	// Check if there even is tracking occurring for the channel
+	if len(users) == 0 {
+		s.ChannelMessageSend(m.ChannelID, "No tracking for this channel currently!")
+		return
+	}
+
+	// List out users
 	text := "This channel is following: "
 	for _, user := range users {
 		text += "**" + user.ScreenName + ",** "
 	}
+	text = strings.TrimSuffix(text, ",** ")+"**"
 
-	s.ChannelMessageSend(m.ChannelID, strings.TrimSuffix(text, ",** ")+"**")
+	s.ChannelMessageSend(m.ChannelID, text)
 }
 
 func followRemove(s *discordgo.Session, m *discordgo.MessageCreate) {

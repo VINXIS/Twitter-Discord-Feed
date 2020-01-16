@@ -1,2 +1,4 @@
 config/config.json
 [0-9]*.json
+twitter
+nohup.out

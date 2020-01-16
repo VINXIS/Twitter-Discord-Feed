@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -32,7 +31,7 @@ func main() {
 			break
 		}
 	}
-	fmt.Println("Twitter feed bot is now online.")
+	log.Println("Twitter feed bot is now online.")
 
 	// Twitter tracking
 	twitterhandle.Track(discord)

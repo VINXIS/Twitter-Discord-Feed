@@ -1,6 +1,5 @@
 # Twitter-Discord-Feed
-
-Give it users to follow and it will post their new tweets to a discord webhook given
+A very simple setup of posting tweets from people onto a discord channel. May add more features later in life.
 
 ## Installation
  1. [Install golang](https://golang.org/doc/install). Ideally you have Go version 1.13 or newer. 

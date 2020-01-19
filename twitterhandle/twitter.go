@@ -53,8 +53,33 @@ func Track(s *discordgo.Session) {
 				if len(webhooks) == 0 {
 					webhook, err = s.WebhookCreate(chID, Config.Discord.Username, Config.Discord.Avatar)
 					if err != nil {
-						s.ChannelMessageSend(chID, "**I need the MANAGE_WEBHOOKS persmission in order to post!**\nI will automatically remove tracking from this channel for now. Once you have given me webhook permissions for this channel, then please copypaste the `~follow` command originally used.")
-						os.Remove("./" + chID + ".json")
+						// Get users
+						var users []anaconda.User
+						b, _ := ioutil.ReadFile("./" + chID + ".json")
+						json.Unmarshal(b, &users)
+						for _, user := range users {
+							// Get tweets
+							v := url.Values{}
+							v.Set("screen_name", user.ScreenName)
+							v.Set("count", "200")
+							tweets, err := Twitter.GetUserTimeline(v)
+							if err != nil {
+								continue
+							}
+							for _, tweet := range tweets {
+								// Check if tweet was after last run
+								tweetTime, _ := tweet.CreatedAtTime()
+								if startTime.After(tweetTime) {
+									continue
+								}
+								s.WebhookExecute(webhook.ID, webhook.Token, false, &discordgo.WebhookParams{
+									Content:   "https://twitter.com/" + user.ScreenName + "/status/" + tweet.IdStr,
+									Username:  user.ScreenName,
+									AvatarURL: user.ProfileImageUrlHttps,
+								})
+
+							}
+						}
 						continue
 					}
 				} else {

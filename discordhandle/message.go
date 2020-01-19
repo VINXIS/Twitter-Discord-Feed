@@ -116,7 +116,7 @@ func follow(s *discordgo.Session, m *discordgo.MessageCreate) {
 	for _, user := range users {
 		text += "**" + user.ScreenName + ",** "
 	}
-	s.ChannelMessageSend(m.ChannelID, strings.TrimSuffix(text, ",** ")+"**")
+	s.ChannelMessageSend(m.ChannelID, strings.TrimSuffix(text, ",** ")+"**. Please make sure I have the **MANAGE_WEBHOOKS** persmission to post via webhooks!\nI will still be able to post without the permission given.")
 }
 
 func followInfo(s *discordgo.Session, m *discordgo.MessageCreate) {

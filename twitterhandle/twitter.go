@@ -52,7 +52,7 @@ func Track(s *discordgo.Session) {
 				webhooks, _ := s.ChannelWebhooks(chID)
 				if len(webhooks) == 0 {
 					webhook, err = s.WebhookCreate(chID, Config.Discord.Username, Config.Discord.Avatar)
-					if err != nil {
+					if err == nil {
 						// Get users
 						var users []anaconda.User
 						b, _ := ioutil.ReadFile("./" + chID + ".json")
